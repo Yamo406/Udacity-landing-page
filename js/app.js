@@ -26,6 +26,7 @@
 const sections = document.querySelectorAll("section");
 const navbarFragment = new DocumentFragment();
 const navbarlist = document.querySelector('#navbar__list');
+const threshold = 100;
 
 
 /**
@@ -71,14 +72,18 @@ navbarlist.appendChild(navbarFragment);
 // how would you select the Active section?
 // If the section in the middle of the viewport is the current section
 // then highlight it.
+const navLinks = document.querySelectorAll('nav ul li a')
+
 document.addEventListener("scroll", (event) => {
     sections.forEach((section, index) => {
         let rect = section.getBoundingClientRect();
-        if (rect.top <= window.innerHeight && rect.bottom >= 0) {
+        if (rect.top <= threshold && rect.bottom >= 0) {
             // Remove active class from all sections
             sections.forEach(sec => sec.classList.remove("activeSection"));
+            navLinks.forEach(link => link.classList.remove("activeLink"));
             // Add active class to the current section
             section.classList.add("activeSection");
+            navLinks[index].classList.add("activeLink");
         }
     });
 })
